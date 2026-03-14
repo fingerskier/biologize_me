@@ -43,8 +43,14 @@ function App() {
   return (
     <>
       <header className="app-header">
-        <h1 onClick={() => { setView('home'); setSelectedTopic(null) }}>
-          <span>🧬</span> Biologize Me
+        <h1 className="site-title">
+          <button
+            type="button"
+            className="site-title-button"
+            onClick={() => { setView('home'); setSelectedTopic(null) }}
+          >
+            <span>🧬</span> Biologize Me
+          </button>
         </h1>
         <nav className="header-nav">
           <button
