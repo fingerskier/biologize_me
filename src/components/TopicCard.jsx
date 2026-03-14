@@ -4,6 +4,14 @@ function TopicCard({ topic, progress, onClick }) {
       className="topic-card"
       style={{ '--card-color': topic.color }}
       onClick={onClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault()
+          onClick?.(e)
+        }
+      }}
     >
       <span className="icon">{topic.icon}</span>
       <h3>{topic.title}</h3>

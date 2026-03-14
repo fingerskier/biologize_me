@@ -7,20 +7,30 @@ function renderMarkdown(text) {
 
   const flushList = () => {
     if (currentList.length > 0) {
+      const ListTag = listType === 'ol' ? 'ol' : 'ul'
       elements.push(
-        <ul key={key++}>
+        <ListTag key={key++}>
           {currentList.map((item, i) => (
             <li key={i} dangerouslySetInnerHTML={{ __html: formatInline(item) }} />
           ))}
-        </ul>
+        </ListTag>
       )
       currentList = []
       listType = null
     }
   }
 
-  const formatInline = (str) => {
+  const escapeHtml = (str) => {
     return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;')
+  }
+
+  const formatInline = (str) => {
+    return escapeHtml(str)
       .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
       .replace(/\*(.+?)\*/g, '<em>$1</em>')
       .replace(/`(.+?)`/g, '<code>$1</code>')
